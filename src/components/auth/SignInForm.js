@@ -7,10 +7,12 @@ class SignInForm extends Component {
     };
 
     render() {
+        console.log('___', this.props)
+        const {handleSubmit} = this.props
         return (
             <div>
                 <h2>Sign In</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <label>Email</label>
                         <Field name="email" component="input" />

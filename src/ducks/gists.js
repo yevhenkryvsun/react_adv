@@ -1,26 +1,21 @@
 import axios from 'axios'
-import {Record} from 'immutable'
 
-const gistsRecord = Record({
+const gistsRecord = {
     loading: false,
     gists: [],
     error: null
-});
+};
 
-export default function gistReducer(state = new gistsRecord(), action) {
+export default function gistReducer(state = gistsRecord, action) {
     const {type, payload, error} = action;
 
     switch (type) {
         case 'GET_START':
-            return state.set('loading', true);
+            return {...state, loading: true};
         case 'GET_SUCCESS':
-            return state
-                .set('loading', true)
-                .updateIn('gists', payload.gists);
+            return {...state, loading: false, gists: payload.gists}
         case 'GET_ERROR':
-            return state
-                .set('loading', false)
-                .set('error', error)
+            return {...state, loading: false, error}
         default:
             return state;
     }
@@ -34,9 +29,9 @@ export function getGists() {
         });
 
         axios.get('https://api.github.com/users/yevsun/gists')
-            .then(gists => dispatch({
+            .then(({data}) => dispatch({
                 type: 'GET_SUCCESS',
-                payload: {gists}
+                payload: {gists: data}
             }))
             .catch(error => dispatch({
                 type: 'GET_ERROR',

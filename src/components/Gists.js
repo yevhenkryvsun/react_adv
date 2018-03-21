@@ -34,5 +34,5 @@ Gists.propTypes = {
 };
 
 export default connect(state => ({
-    gists: state.gists
+    gists: state.gists.gists
 }), {getGists})(Gists);

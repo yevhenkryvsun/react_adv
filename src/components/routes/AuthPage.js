@@ -5,6 +5,7 @@ import {Route, NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {signUp, moduleName} from "../../ducks/auth";
 import Loader from '../common/Loader'
+import './styles.css'
 
 class AuthPage extends Component {
     static propTypes = {
@@ -14,8 +15,8 @@ class AuthPage extends Component {
     render() {
         const {loading} = this.props
         return (
-            <div>
-                <h1>Auth Page</h1>
+            <div className="container">
+                <h1 className="header">Auth Page</h1>
                 <NavLink to="/auth/signin" activeStyle={{color: 'red'}}>Sign In</NavLink>
                 <NavLink to="/auth/signup" activeStyle={{color: 'red'}}>Sign Up</NavLink>
                 <Route path="/auth/signin" render={() => <SignInForm onSubmit={this.handleSignIn}/>}></Route>
